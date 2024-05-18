@@ -56,7 +56,7 @@ public class CoursesService {
 
         List<UUID> classroomIds = api.getClassroomIdsByStudentId(studentId);
 
-        //result.addAll();
+        result.addAll(coursesRepository.findAllByClassroomIds(classroomIds));
 
         return result;
     }

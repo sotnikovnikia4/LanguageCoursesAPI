@@ -1,13 +1,15 @@
 package ru.codecrafters.LanguageCoursesAPI.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -17,9 +19,23 @@ public class AuthorizationAPI {
     private final ObjectMapper objectMapper;
 
     public List<UUID> getClassroomIdsByStudentId(UUID studentId) {
-        String json = restTemplate.getForObject(url, String.class, Map.of("studentId", studentId.toString()));
+        try {
+            String json = restTemplate.getForObject(url, String.class, Map.of("studentId", studentId.toString()));
+            JsonNode tree = objectMapper.readTree(json);
 
+            List<UUID> result = new ArrayList<>();
 
-        return null;
+            for(int i = 0; i < tree.size(); i++){
+                JsonNode node = tree.get(i);
+                result.add(UUID.fromString(node.get("id").toString()));
+            }
+
+            return result;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+
+            return Collections.emptyList();
+        }
+
     }
 }
