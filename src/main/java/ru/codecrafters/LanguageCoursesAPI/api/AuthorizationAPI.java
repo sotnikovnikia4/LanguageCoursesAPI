@@ -8,6 +8,7 @@ import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import ru.codecrafters.LanguageCoursesAPI.exceptions.APIException;
 
 import java.util.*;
 
@@ -32,9 +33,7 @@ public class AuthorizationAPI {
 
             return result;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-
-            return Collections.emptyList();
+            throw new APIException("Произошла ошибка обработки ответа от " + url);
         }
 
     }

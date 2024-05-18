@@ -79,4 +79,11 @@ public class CoursesController {
 
         coursesService.delete(courseId);
     }
+
+    @GetMapping("/{id}")
+    public CourseDTO getCourseById(@PathVariable UUID id){
+        Course course = coursesService.getCourseById(id);
+
+        return modelMapper.map(course, CourseDTO.class);
+    }
 }

@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.codecrafters.LanguageCoursesAPI.dto.CourseDTO;
 import ru.codecrafters.LanguageCoursesAPI.dto.CreationLessonDTO;
 import ru.codecrafters.LanguageCoursesAPI.dto.LessonDTO;
+import ru.codecrafters.LanguageCoursesAPI.models.Course;
 import ru.codecrafters.LanguageCoursesAPI.models.Lesson;
 import ru.codecrafters.LanguageCoursesAPI.services.CoursesService;
 import ru.codecrafters.LanguageCoursesAPI.services.LessonsService;
@@ -36,5 +38,12 @@ public class LessonsController {
         List<Lesson> lessons = lessonsService.getLessonsByCourseId(courseId);
 
         return lessons.stream().map(c -> modelMapper.map(c, LessonDTO.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public LessonDTO getLessonById(@PathVariable UUID id){
+        Lesson lesson = lessonsService.getLessonById(id);
+
+        return modelMapper.map(lesson, LessonDTO.class);
     }
 }

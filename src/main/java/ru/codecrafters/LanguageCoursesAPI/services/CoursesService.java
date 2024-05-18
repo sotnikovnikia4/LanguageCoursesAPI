@@ -60,4 +60,8 @@ public class CoursesService {
 
         return result;
     }
+
+    public Course getCourseById(UUID id) {
+        return coursesRepository.findById(id).orElseThrow(() -> new CourseException("Такого курса нет"));
+    }
 }

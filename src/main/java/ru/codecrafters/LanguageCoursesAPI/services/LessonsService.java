@@ -25,4 +25,8 @@ public class LessonsService {
     public List<Lesson> getLessonsByCourseId(UUID courseId) {
         return lessonRepository.findAllByCourseId(courseId);
     }
+
+    public Lesson getLessonById(UUID id) {
+        return lessonRepository.findById(id).orElseThrow(() -> new CourseException("Такого урока нет"));
+    }
 }
