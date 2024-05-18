@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.codecrafters.LanguageCoursesAPI.api.AuthorizationAPI;
 import ru.codecrafters.LanguageCoursesAPI.dto.CourseDTO;
 import ru.codecrafters.LanguageCoursesAPI.dto.CreationCourseDTO;
 import ru.codecrafters.LanguageCoursesAPI.models.Course;
@@ -58,7 +59,10 @@ public class CoursesController {
 
     @GetMapping("/student_courses/{studentId}")
     public List<CourseDTO> getCoursesByStudent(@PathVariable("studentId") UUID studentId){//TODO
-        return null;
+
+        List<Course> courses = coursesService.getCoursesByStudentId(studentId);
+
+        return courses.stream().map(c -> modelMapper.map(c, CourseDTO.class)).collect(Collectors.toList());
     }
 
     @PatchMapping
