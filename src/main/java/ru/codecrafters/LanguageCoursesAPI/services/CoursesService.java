@@ -54,7 +54,9 @@ public class CoursesService {
 
         List<Course> result = new ArrayList<>(coursesRepository.findAllByTeacherId(null));
 
-        List<IdDTO> classroomIds = api.getClassroomIdsByStudentId(studentId);
+        List<UUID> classroomIds = api.getClassroomIdsByStudentId(studentId);
+
+        //result.addAll();
 
         return result;
     }
