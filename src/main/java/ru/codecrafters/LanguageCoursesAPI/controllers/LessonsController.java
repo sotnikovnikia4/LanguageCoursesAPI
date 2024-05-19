@@ -27,6 +27,7 @@ public class LessonsController {
     @PostMapping("/create")
     public LessonDTO create(@RequestBody CreationLessonDTO creationLessonDTO){
         Lesson lesson = modelMapper.map(creationLessonDTO, Lesson.class);
+        lesson.setId(null);
 
         lesson = lessonsService.create(lesson);
 

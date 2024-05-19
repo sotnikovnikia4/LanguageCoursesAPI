@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseDTO {
+    @JsonProperty("id")
     private UUID id;
 
     private String title;

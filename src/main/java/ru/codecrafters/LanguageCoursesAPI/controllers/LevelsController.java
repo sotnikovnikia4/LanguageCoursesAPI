@@ -46,6 +46,7 @@ public class LevelsController {
     public LevelDTO create(@RequestBody CreationLevelDTO creationLevelDTO){
         Level level = modelMapper.map(creationLevelDTO, Level.class);
         level.setCorrectAnswerAsList(creationLevelDTO.getAnswer());
+        level.setId(null);
 
         levelsService.save(level);
 

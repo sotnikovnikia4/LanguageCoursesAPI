@@ -34,19 +34,28 @@ public class CoursesController {
     public CourseDTO createCourseByEditor(@RequestBody CreationCourseDTO creationCourseDTO){
         Course courseToCreate = modelMapper.map(creationCourseDTO, Course.class);
 
+        courseToCreate.setId(null);
         coursesService.create(courseToCreate);
         coursesService.setTeacher(courseToCreate, null);
 
-        return modelMapper.map(courseToCreate, CourseDTO.class);
+        CourseDTO courseDTO = modelMapper.map(courseToCreate, CourseDTO.class);
+        courseDTO.setId(courseToCreate.getId());
+
+        return courseDTO;
     }
 
     @PostMapping("/create_by_teacher")
     public CourseDTO createCourseByTeacher(@RequestBody CreationCourseDTO creationCourseDTO){
         Course courseToCreate = modelMapper.map(creationCourseDTO, Course.class);
-
+        courseToCreate.setId(null);
         coursesService.create(courseToCreate);
 
-        return modelMapper.map(courseToCreate, CourseDTO.class);
+        System.out.println(courseToCreate);
+
+        CourseDTO courseDTO = modelMapper.map(courseToCreate, CourseDTO.class);
+        courseDTO.setId(courseToCreate.getId());
+
+        return courseDTO;
     }
 
     @GetMapping("/teacher_courses/{teacherId}")
