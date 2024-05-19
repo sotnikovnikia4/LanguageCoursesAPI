@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS courses (
 
 CREATE TABLE IF NOT EXISTS lessons (
                                        id UUID PRIMARY KEY,
-                                       course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE
+                                       course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+                                       description text
 );
 
 CREATE TABLE IF NOT EXISTS levels (
@@ -16,14 +17,14 @@ CREATE TABLE IF NOT EXISTS levels (
                                       lesson_id UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
                                       level_type INT NOT NULL,
                                       task TEXT NOT NULL,
-                                      correct_answer TEXT NOT NULL,
+                                      correct_answer text,
                                       points INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS course_classrooms (
-                                             course_id UUID REFERENCES courses(id) ON DELETE CASCADE,
-                                             classroom_id INT4,
-                                             PRIMARY KEY (course_id, classroom_id)
+                                                 course_id UUID REFERENCES courses(id) ON DELETE CASCADE,
+                                                 classroom_id INT4,
+                                                 PRIMARY KEY (course_id, classroom_id)
 );
 
 CREATE TABLE IF NOT EXISTS student_progress (

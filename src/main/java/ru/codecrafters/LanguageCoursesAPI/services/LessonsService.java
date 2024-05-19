@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.codecrafters.LanguageCoursesAPI.exceptions.CourseException;
 import ru.codecrafters.LanguageCoursesAPI.models.Course;
 import ru.codecrafters.LanguageCoursesAPI.models.Lesson;
+import ru.codecrafters.LanguageCoursesAPI.models.Level;
 import ru.codecrafters.LanguageCoursesAPI.repositories.LessonRepository;
 
 import java.util.List;
@@ -28,5 +29,15 @@ public class LessonsService {
 
     public Lesson getLessonById(UUID id) {
         return lessonRepository.findById(id).orElseThrow(() -> new CourseException("Такого урока нет"));
+    }
+
+    public List<Level> getLevelsByLessonId(UUID lessonId) {
+        Optional<Lesson> lesson = lessonRepository.findById(lessonId);
+
+        if(lesson.isEmpty()){
+            throw new CourseException("Нет такого урока");
+        }
+
+        return lesson.get().getLevels();
     }
 }

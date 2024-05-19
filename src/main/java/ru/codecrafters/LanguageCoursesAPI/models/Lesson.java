@@ -22,8 +22,11 @@ public class Lesson {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JoinColumn(name = "description", referencedColumnName = "id")
     private Course course;
+
+    @Column(name = "description")
+    private String description;
 
     @OneToMany(mappedBy = "lesson")
     private List<Level> levels;

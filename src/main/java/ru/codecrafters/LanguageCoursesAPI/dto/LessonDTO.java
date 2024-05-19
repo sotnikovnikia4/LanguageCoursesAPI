@@ -15,4 +15,6 @@ public class LessonDTO {
     private UUID id;
 
     private IdDTO course;
+
+    private String description;
 }

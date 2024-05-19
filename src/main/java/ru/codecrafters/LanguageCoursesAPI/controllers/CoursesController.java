@@ -51,7 +51,7 @@ public class CoursesController {
     }
 
     @GetMapping("/editor_courses")
-    public List<CourseDTO> getCoursesByEditor(@PathParam("teacherId") UUID teacherId){
+    public List<CourseDTO> getCoursesByEditor(){
         List<Course> courses = coursesService.getCoursesByTeacher(null);
 
         return courses.stream().map(c -> modelMapper.map(c, CourseDTO.class)).collect(Collectors.toList());

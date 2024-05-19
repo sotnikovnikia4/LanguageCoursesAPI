@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Array;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,4 +38,20 @@ public class Level {
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
+
+    public List<String> getCorrectAnswerAsList(){
+        return List.of(correctAnswer.split("\\|"));
+    }
+
+    public void setCorrectAnswerAsList(List<String> answer){
+        StringBuilder sb = new StringBuilder();
+        for(String s : answer){
+            sb.append(s);
+            sb.append('|');
+        }
+
+        if(sb.length() != 0) sb.setLength(sb.length() - 1);
+
+        correctAnswer = sb.toString();
+    }
 }
