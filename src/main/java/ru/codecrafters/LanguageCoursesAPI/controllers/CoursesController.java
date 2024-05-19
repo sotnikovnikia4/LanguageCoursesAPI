@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.codecrafters.LanguageCoursesAPI.api.AuthorizationAPI;
+import ru.codecrafters.LanguageCoursesAPI.dto.AddCourseToClassroomDTO;
 import ru.codecrafters.LanguageCoursesAPI.dto.CourseDTO;
 import ru.codecrafters.LanguageCoursesAPI.dto.CreationCourseDTO;
 import ru.codecrafters.LanguageCoursesAPI.models.Course;
@@ -25,9 +26,9 @@ public class CoursesController {
     private final CoursesService coursesService;
 
 
-    @PostMapping("/add-course-to-group")
-    public void attach(){
-
+    @PostMapping("/add-course-to-classroom")
+    public void attach(@RequestBody AddCourseToClassroomDTO dto){
+        coursesService.attachCourseToClassroom(dto.getCourseId(), dto.getClassroomId());
     }
 
     @PostMapping("/create_by_editor")

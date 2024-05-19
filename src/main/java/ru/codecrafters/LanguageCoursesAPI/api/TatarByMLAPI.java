@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TatarByMLAPI {
     private final RestTemplate restTemplate;
-    private final String url = "http://localhost:8081/voice/CheckVoice";
+    private final String url = "http://localhost:8086/voice/CheckVoice";
 
     public CorrectnessAnswerDTO getCorrectnessAnswer(List<String> answer, String task) {
         try{

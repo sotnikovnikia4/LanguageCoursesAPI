@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CoursesService {
     private final CoursesRepository coursesRepository;
     private final AuthorizationAPI api;
@@ -63,5 +64,13 @@ public class CoursesService {
 
     public Course getCourseById(UUID id) {
         return coursesRepository.findById(id).orElseThrow(() -> new CourseException("Такого курса нет"));
+    }
+
+    public void attachCourseToClassroom(UUID courseId, UUID classroomId) {
+        Optional<Course> course = coursesRepository.findById(courseId);
+
+        if(course.isEmpty()){
+            throw new CourseException("Такого курса не существует");
+        }
     }
 }

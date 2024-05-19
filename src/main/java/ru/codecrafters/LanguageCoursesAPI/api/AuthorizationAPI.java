@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.codecrafters.LanguageCoursesAPI.exceptions.APIException;
@@ -21,6 +22,7 @@ public class AuthorizationAPI {
 
     public List<UUID> getClassroomIdsByStudentId(UUID studentId) {
         try {
+            //HttpEntity<String> http = new
             String json = restTemplate.getForObject(url, String.class, Map.of("studentId", studentId.toString()));
             JsonNode tree = objectMapper.readTree(json);
 

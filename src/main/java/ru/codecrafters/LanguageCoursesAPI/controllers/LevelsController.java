@@ -47,6 +47,7 @@ public class LevelsController {
         Level level = modelMapper.map(creationLevelDTO, Level.class);
         level.setCorrectAnswerAsList(creationLevelDTO.getAnswer());
         level.setId(null);
+        level.setLevelType(level.getLevelType()+1);
 
         levelsService.save(level);
 
@@ -55,7 +56,9 @@ public class LevelsController {
 
     @PostMapping("/check-answer")
     public CorrectnessAnswerDTO check(@RequestBody CheckAnswerDTO checkAnswerDTO){
-        Level level = levelsService.getById(checkAnswerDTO.getLevel().getId());
+        //Level level = levelsService.getById(checkAnswerDTO.getLevel().getId());
+
+        levelsService.checkAnswer(checkAnswerDTO);
 
         return levelsService.checkAnswer(checkAnswerDTO);
     }
