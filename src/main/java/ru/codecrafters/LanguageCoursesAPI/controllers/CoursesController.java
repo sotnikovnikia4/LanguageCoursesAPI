@@ -1,5 +1,6 @@
 package ru.codecrafters.LanguageCoursesAPI.controllers;
 
+import io.swagger.v3.oas.annotations.headers.Header;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -74,9 +75,12 @@ public class CoursesController {
     }
 
     @GetMapping("/student_courses/{studentId}")
-    public List<CourseDTO> getCoursesByStudent(@PathVariable("studentId") UUID studentId){//TODO
+    public List<CourseDTO> getCoursesByStudent(@PathVariable("studentId") UUID studentId,
+                                               @RequestHeader("Authorization") String token
 
-        List<Course> courses = coursesService.getCoursesByStudentId(studentId);
+                                               ){//TODO
+
+        List<Course> courses = coursesService.getCoursesByStudentId(studentId, token);
 
         return courses.stream().map(c -> modelMapper.map(c, CourseDTO.class)).collect(Collectors.toList());
     }

@@ -51,11 +51,11 @@ public class CoursesService {
         coursesRepository.deleteById(courseId);
     }
 
-    public List<Course> getCoursesByStudentId(UUID studentId) {
+    public List<Course> getCoursesByStudentId(UUID studentId, String token) {
 
         List<Course> result = new ArrayList<>(coursesRepository.findAllByTeacherId(null));
 
-        List<UUID> classroomIds = api.getClassroomIdsByStudentId(studentId);
+        List<UUID> classroomIds = api.getClassroomIdsByStudentId(studentId, token);
 
         result.addAll(coursesRepository.findAllByClassroomIds(classroomIds));
 

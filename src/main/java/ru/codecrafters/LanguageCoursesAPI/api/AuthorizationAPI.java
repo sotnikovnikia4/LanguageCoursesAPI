@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.codecrafters.LanguageCoursesAPI.exceptions.APIException;
@@ -20,11 +23,18 @@ public class AuthorizationAPI {
     private final String url = "http://localhost:8081/classrooms/student/{studentId}/get-classrooms";
     private final ObjectMapper objectMapper;
 
-    public List<UUID> getClassroomIdsByStudentId(UUID studentId) {
+    public List<UUID> getClassroomIdsByStudentId(UUID studentId, String token) {
         try {
-            //HttpEntity<String> http = new
-            String json = restTemplate.getForObject(url, String.class, Map.of("studentId", studentId.toString()));
-            JsonNode tree = objectMapper.readTree(json);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", token);
+
+            HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url, HttpMethod.GET, requestEntity, String.class, Map.of("studentId", studentId.toString()));
+
+            JsonNode tree = objectMapper.readTree(response.getBody());
 
             List<UUID> result = new ArrayList<>();
 
