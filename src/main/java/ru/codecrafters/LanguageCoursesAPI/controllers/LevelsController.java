@@ -52,7 +52,7 @@ public class LevelsController {
         return modelMapper.map(level, LevelDTO.class);
     }
 
-    @GetMapping("/check-answer")
+    @PostMapping("/check-answer")
     public CorrectnessAnswerDTO check(@RequestBody CheckAnswerDTO checkAnswerDTO){
         Level level = levelsService.getById(checkAnswerDTO.getLevel().getId());
 
