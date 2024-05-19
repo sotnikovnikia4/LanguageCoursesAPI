@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +18,6 @@ public class LessonDTO {
     private IdDTO course;
 
     private String description;
+
+    private List<LevelDTO> levels;
 }
