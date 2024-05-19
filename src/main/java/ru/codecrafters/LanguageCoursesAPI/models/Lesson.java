@@ -22,7 +22,7 @@ public class Lesson {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "description", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
 
     @Column(name = "description")

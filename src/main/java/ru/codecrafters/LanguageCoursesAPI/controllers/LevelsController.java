@@ -5,15 +5,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.datasource.lookup.IsolationLevelDataSourceRouter;
 import org.springframework.web.bind.annotation.*;
-import ru.codecrafters.LanguageCoursesAPI.dto.CreationLevelDTO;
-import ru.codecrafters.LanguageCoursesAPI.dto.LessonDTO;
-import ru.codecrafters.LanguageCoursesAPI.dto.LevelDTO;
+import ru.codecrafters.LanguageCoursesAPI.dto.*;
 import ru.codecrafters.LanguageCoursesAPI.models.Lesson;
 import ru.codecrafters.LanguageCoursesAPI.models.Level;
 import ru.codecrafters.LanguageCoursesAPI.services.LessonsService;
 import ru.codecrafters.LanguageCoursesAPI.services.LevelsService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -53,5 +52,11 @@ public class LevelsController {
         return modelMapper.map(level, LevelDTO.class);
     }
 
+    @GetMapping("/check-answer")
+    public CorrectnessAnswerDTO check(@RequestBody CheckAnswerDTO checkAnswerDTO){
+        Level level = levelsService.getById(checkAnswerDTO.getLevel().getId());
+
+        return levelsService.checkAnswer(checkAnswerDTO);
+    }
 
 }
