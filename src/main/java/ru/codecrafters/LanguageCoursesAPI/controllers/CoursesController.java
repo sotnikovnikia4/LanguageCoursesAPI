@@ -24,6 +24,12 @@ public class CoursesController {
     private final ModelMapper modelMapper;
     private final CoursesService coursesService;
 
+
+    @PostMapping("/add-course-to-group")
+    public void attach(){
+
+    }
+
     @PostMapping("/create_by_editor")
     public CourseDTO createCourseByEditor(@RequestBody CreationCourseDTO creationCourseDTO){
         Course courseToCreate = modelMapper.map(creationCourseDTO, Course.class);
@@ -44,7 +50,7 @@ public class CoursesController {
     }
 
     @GetMapping("/teacher_courses/{teacherId}")
-    public List<CourseDTO> getCoursesByTeacher(@PathParam("teacherId") UUID teacherId){
+    public List<CourseDTO> getCoursesByTeacher(@PathVariable UUID teacherId){
         List<Course> courses = coursesService.getCoursesByTeacher(teacherId);
 
         return courses.stream().map(c -> modelMapper.map(c, CourseDTO.class)).collect(Collectors.toList());
