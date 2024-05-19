@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface CoursesRepository extends JpaRepository<Course, UUID> {
     List<Course> findAllByTeacherId(UUID teacherId);
 
-    @Query(nativeQuery = true, value = "select * from Course as c inner join course_classrooms as cc where cc.classroom_id in ?1")
+    @Query(nativeQuery = true, value = "select * from courses as c inner join course_classrooms as cc on uuid_eq(cc.id, c.id) where cc.classroom_id in ?1")
     List<Course> findAllByClassroomIds(List<UUID> list);
 
 }
